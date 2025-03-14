@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varshini Avula | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        emailjs.init("CoRkb1qOpxlcCZOIh");  // Replace with your EmailJS Public Key
+
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent page refresh
+
+                console.log("Form submission triggered");  // Debug step 1
+
+                const formData = {
+                    name: document.querySelector('input[placeholder="Your Name"]').value,
+                    email: document.querySelector('input[placeholder="Your Email"]').value,
+                    subject: document.querySelector('input[placeholder="Subject"]').value,
+                    message: document.querySelector('textarea[placeholder="Your Message"]').value
+                };
+
+                console.log('Form Data:', formData); // Debug step 2
+
+                emailjs.send("service_5rzwhh9", "template_nj17tp5", formData)
+                    .then(() => {
+                        console.log('Notification Email Sent');  // Debug step 3
+                        
+                        emailjs.send("service_5rzwhh9", "template_axbfeqr", formData)
+                            .then(() => {
+                                console.log('Confirmation Email Sent');  // Debug step 4
+                                alert('Thank you for your message! I will get back to you soon.');
+                                contactForm.reset();
+                            })
+                            .catch(err => {
+                                console.error('Confirmation Email Error:', err);
+                                alert('Failed to send confirmation email.');
+                            });
+                    })
+                    .catch(err => {
+                        console.error('Notification Email Error:', err);
+                        alert('Failed to send message. Please try again.');
+                    });
+            });
+        }
+    });
+</script>
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Varshini<span>.</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="#resume">Resume</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div id="particles-js" class="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h3 class="hero-subtitle">Hello, I'm</h3>
+                <h1 class="hero-title">Varshini Avula</h1>
+                <p class="hero-description">An ambitious Computer Science student at IIITDM Kancheepuram with a passion for software development and problem-solving.</p>
+                <a href="#contact" class="hero-cta">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a Computer Science Engineering student at IIITDM Kancheepuram. I enjoy coding, problem-solving, and building creative solutions.</p>
+                    <p>I have experience in various programming languages, data structures, and algorithms. I'm always eager to learn new technologies and improve my skills.</p>
+                    <p>When I'm not coding, I love to read, watch movies, and explore.
+                </div>
+                <div class="about-skills">
+                    <h3 class="skill-title">Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item" data-aos="fade-up">
+                            <div class="skill-icon"><i class="fab fa-python"></i></div>
+                            <div class="skill-name">Python</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-icon"><i class="fab fa-cuttlefish"></i></div>
+                            <div class="skill-name">C/C++</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-icon"><i class="fas fa-database"></i></div>
+                            <div class="skill-name">SQL</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                            <div class="skill-name">HTML</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                            <div class="skill-name">CSS</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="500">
+                            <div class="skill-icon"><i class="fab fa-js"></i></div>
+                            <div class="skill-name">JavaScript</div>
+                        </div>
+                       <!-- <div class="skill-item" data-aos="fade-up" data-aos-delay="600">
+                            <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                            <div class="skill-name">NumPy</div>
+                        </div>
+                        <div class="skill-item" data-aos="fade-up" data-aos-delay="700">
+                            <div class="skill-icon"><i class="fas fa-table"></i></div>
+                            <div class="skill-name">Pandas</div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            
+            <!-- Currently Working On -->
+            <h3 class="subsection-title">Currently Working On</h3>
+            <div class="current-project">
+                <h3 class="current-project-title">Movie Ticket Booking System</h3>
+                    <p class="current-project-description">
+                   A web application for browsing movies, selecting seats, and booking tickets with real-time seat updates and secure payment integration. Currently working on payment integration and ticket generation.
+                </p>
+    
+                <div class="progress-container">
+                    <div class="progress-bar" style="width:20%;"></div>
+                </div>
+               <div class="progress-text">
+                   <span>Progress: 20%</span>
+                   <span>Expected Completion: April 2025</span>
+                </div>
+            </div> 
+
+            <div class="current-project">
+                <h3 class="current-project-title">Loan Default Prediction Model</h3>
+                <p class="current-project-description">
+                    An end-to-end machine learning model to forecast loan defaults using Python. Currently working on improving model accuracy and enhancing data visualization features.
+                </p>
+            
+                <div class="progress-container">
+                    <div class="progress-bar" style="width:20%;"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Progress: 20%</span>
+                    <span>Expected Completion: March 2025</span>
+                </div>
+            </div>
+
+     
+            <!-- Completed Projects -->
+            <h3 class="subsection-title">Completed Projects</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img" style="background-image: url('project-images/digital-wallet-system.jpeg')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Digital Wallet System</h3>
+                        <p class="project-description">A C++ OOP-based Digital Wallet System that facilitates user registration, money transfers, account combining, and tracking of transactions.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">OOP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/varshini-1396/Digital-Wallet-System" class="project-link"><i class="fab fa-github"></i> Source Code</a>
+                           <!-- <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img" style="background-image: url('https://via.placeholder.com/600x350')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Loan Default Prediction Model</h3>
+                        <p class="project-description">An end-to-end machine learning model to forecast loan defaults using Python. Implemented data cleaning, analysis, visualization, and model creation.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">ML</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Scikit-Learn</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img" style="background-image: url('project-images/interactive-data-dashboard.png')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Interactive Data Dashboard</h3>
+                        <p class="project-description">Interactive data dashboards built with Streamlit and Python for visual data insights. Includes data handling with Pandas and interactive visualizations with Plotly.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Plotly</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/varshini-1396/Sentiment-Dashboard" class="project-link"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="https://sentiment-dashboard-gnntua3hpzwpmpjunbttmb.streamlit.app/" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img" style="background-image: url('project-images/currency-converter.png')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Currency Converter</h3>
+                        <p class="project-description">A responsive web-based currency conversion tool with an interactive UI. Convert between various currencies with real-time exchange rates.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/varshini-1396/Currency-Converter" class="project-link"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="https://varshini-1396.github.io/Currency-Converter/" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>Feel free to reach out to me for any opportunities, collaborations, or just to say hello!</p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:avulavarshini01@gmail.com">avulavarshini01@gmail.com</a></p>
+                    <p><i class="fas fa-phone"></i> Phone: <a href="tel:+918885433919">+91-8885433919</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Location: Nellore, Andhra Pradesh, India</p>
+                    
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/varshini-avula" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/varshini-1396" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                       <!-- <a href="https://twitter.com/" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>  -->
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section resume-section">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <p class="resume-text">Looking for a more detailed overview of my skills and experience?</p>
+            <a href="github_resume.pdf" class="download-btn" id="downloadResume">View Resume</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Varshini Avula. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
