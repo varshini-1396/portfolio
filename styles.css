@@ -219,13 +219,27 @@ nav.scrolled {
 }
 
 .about-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--text-gray);
-    line-height: 1.7;
+    line-height: 1.8;
+    text-align: justify; /* Justify text for better readability */
 }
 
 .about-text p {
     margin-bottom: 20px;
+}
+
+/* Styling for Image */
+.about-image {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.about-image img {
+    max-width: 40%; 
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .skill-title {
@@ -261,6 +275,58 @@ nav.scrolled {
 .skill-name {
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+
+/* Education Section */
+.education-section {
+    padding: 60px 10%;
+    background: #1a1a2e; /* Dark background to match the theme */
+    color: #fff;
+    text-align: center;
+}
+
+.education-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #8A2BE2;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.education-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.education-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+.education-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.education-item h3 {
+    color: var(--accent);
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.education-item p {
+    font-size: 1rem;
+    color: #ddd;
 }
 
 /* Projects Section */

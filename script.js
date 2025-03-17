@@ -136,26 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Animate progress bar
-/*function animateProgressBar() {
-    const progressBar = document.querySelector('.progress-bar');
-    if (progressBar) {
-        progressBar.style.width = '75%';
-    }
-}
-
-// Observe elements for animation
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            if (entry.target.classList.contains('progress-container')) {
-                animateProgressBar();
-            }
-            entry.target.classList.add('animated');
-        }
-    });
-}, { threshold: 0.1 });*/
-
 // Observe progress bar and other animated elements
 document.addEventListener('DOMContentLoaded', function() {
     const progressContainer = document.querySelector('.progress-container');
