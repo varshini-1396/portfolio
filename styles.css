@@ -562,8 +562,14 @@ nav.scrolled {
 }
 
 .social-link i {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--text-light);
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .contact-form {
