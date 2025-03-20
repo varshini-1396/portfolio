@@ -213,3 +213,34 @@ window.addEventListener('scroll', function() {
         parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
     }
 });
+
+// Experience section functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle experience item clicks
+    const experienceContents = document.querySelectorAll('.experience-content');
+    experienceContents.forEach(item => {
+        item.addEventListener('click', function() {
+            const details = this.querySelector('.experience-details');
+            details.classList.toggle('expanded');
+        });
+    });
+
+    // Animate experience items on scroll
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px'
+    };
+
+    const experienceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    const experienceTimelineItems = document.querySelectorAll('.experience-item');
+    experienceTimelineItems.forEach(item => {
+        experienceObserver.observe(item);
+    });
+});
