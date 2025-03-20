@@ -17,39 +17,119 @@
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault(); // Prevent page refresh
 
-                console.log("Form submission triggered");  // Debug step 1
+                // Get form fields
+                const name = document.querySelector('input[placeholder="Your Name"]').value.trim();
+                const email = document.querySelector('input[placeholder="Your Email"]').value.trim();
+                const subject = document.querySelector('input[placeholder="Subject"]').value.trim();
+                const message = document.querySelector('textarea[placeholder="Your Message"]').value.trim();
 
+                // Validate fields
+                let isValid = true;
+                let errorMessage = '';
+
+                if (!name) {
+                    isValid = false;
+                    errorMessage = 'Please enter your name';
+                }
+                if (!email) {
+                    isValid = false;
+                    errorMessage = 'Please enter your email';
+                } else if (!isValidEmail(email)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address';
+                }
+                if (!subject) {
+                    isValid = false;
+                    errorMessage = 'Please enter a subject';
+                }
+                if (!message) {
+                    isValid = false;
+                    errorMessage = 'Please enter your message';
+                }
+
+                if (!isValid) {
+                    showNotification(errorMessage, 'error');
+                    return;
+                }
+
+                // Show loading state
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+
+                // Prepare form data
                 const formData = {
-                    name: document.querySelector('input[placeholder="Your Name"]').value,
-                    email: document.querySelector('input[placeholder="Your Email"]').value,
-                    subject: document.querySelector('input[placeholder="Subject"]').value,
-                    message: document.querySelector('textarea[placeholder="Your Message"]').value
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message
                 };
 
-                console.log('Form Data:', formData); // Debug step 2
-
+                // Send email
                 emailjs.send("service_5rzwhh9", "template_nj17tp5", formData)
                     .then(() => {
-                        console.log('Notification Email Sent');  // Debug step 3
-                        
-                        emailjs.send("service_5rzwhh9", "template_axbfeqr", formData)
-                            .then(() => {
-                                console.log('Confirmation Email Sent');  // Debug step 4
-                                alert('Thank you for your message! I will get back to you soon.');
-                                contactForm.reset();
-                            })
-                            .catch(err => {
-                                console.error('Confirmation Email Error:', err);
-                                alert('Failed to send confirmation email.');
-                            });
+                        console.log('Email Sent Successfully');
+                        showNotification('Thank you for your message! I will get back to you soon.', 'success');
+                        contactForm.reset();
                     })
                     .catch(err => {
-                        console.error('Notification Email Error:', err);
-                        alert('Failed to send message. Please try again.');
+                        console.error('Email Error:', err);
+                        showNotification('Failed to send message. Please try again.', 'error');
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitBtn.textContent = originalBtnText;
+                        submitBtn.disabled = false;
                     });
             });
         }
     });
+
+    // Email validation function
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Notification function
+    function showNotification(message, type = 'success') {
+        // Remove any existing notifications
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
+        // Create new notification
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        
+        // Add icon based on type
+        const icon = document.createElement('i');
+        icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+        notification.appendChild(icon);
+        
+        // Add message
+        const messageText = document.createElement('span');
+        messageText.textContent = message;
+        notification.appendChild(messageText);
+        
+        // Add to document
+        document.body.appendChild(notification);
+        
+        // Show notification
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Hide and remove after 5 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 5000);
+    }
 </script>
 
 
