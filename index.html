@@ -8,131 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        emailjs.init("CoRkb1qOpxlcCZOIh");  // Replace with your EmailJS Public Key
-
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevent page refresh
-
-                // Get form fields
-                const name = document.querySelector('input[placeholder="Your Name"]').value.trim();
-                const email = document.querySelector('input[placeholder="Your Email"]').value.trim();
-                const subject = document.querySelector('input[placeholder="Subject"]').value.trim();
-                const message = document.querySelector('textarea[placeholder="Your Message"]').value.trim();
-
-                // Validate fields
-                let isValid = true;
-                let errorMessage = '';
-
-                if (!name) {
-                    isValid = false;
-                    errorMessage = 'Please enter your name';
-                }
-                if (!email) {
-                    isValid = false;
-                    errorMessage = 'Please enter your email';
-                } else if (!isValidEmail(email)) {
-                    isValid = false;
-                    errorMessage = 'Please enter a valid email address';
-                }
-                if (!subject) {
-                    isValid = false;
-                    errorMessage = 'Please enter a subject';
-                }
-                if (!message) {
-                    isValid = false;
-                    errorMessage = 'Please enter your message';
-                }
-
-                if (!isValid) {
-                    showNotification(errorMessage, 'error');
-                    return;
-                }
-
-                // Show loading state
-                const submitBtn = contactForm.querySelector('.submit-btn');
-                const originalBtnText = submitBtn.textContent;
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-
-                // Prepare form data
-                const formData = {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message
-                };
-
-                // Send email
-                emailjs.send("service_5rzwhh9", "template_nj17tp5", formData)
-                    .then(() => {
-                        console.log('Email Sent Successfully');
-                        showNotification('Thank you for your message! I will get back to you soon.', 'success');
-                        contactForm.reset();
-                    })
-                    .catch(err => {
-                        console.error('Email Error:', err);
-                        showNotification('Failed to send message. Please try again.', 'error');
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitBtn.textContent = originalBtnText;
-                        submitBtn.disabled = false;
-                    });
-            });
-        }
-    });
-
-    // Email validation function
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Notification function
-    function showNotification(message, type = 'success') {
-        // Remove any existing notifications
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
-
-        // Create new notification
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        
-        // Add icon based on type
-        const icon = document.createElement('i');
-        icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-        notification.appendChild(icon);
-        
-        // Add message
-        const messageText = document.createElement('span');
-        messageText.textContent = message;
-        notification.appendChild(messageText);
-        
-        // Add to document
-        document.body.appendChild(notification);
-        
-        // Show notification
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-        
-        // Hide and remove after 5 seconds
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                notification.remove();
-            }, 300);
-        }, 5000);
-    }
-</script>
-
-
 </head>
 <body>
     <!-- Navigation -->
@@ -144,6 +19,7 @@
                 <a href="#about">About</a>
                 <a href="#technical-skills">Skills</a>
                 <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
                 <a href="#experience">Experience</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
@@ -189,58 +65,108 @@
     
 
     <!--Skills Section-->
-
     <section id="technical-skills">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item" data-aos="fade-up">
-                    <div class="skill-icon"><i class="fab fa-python"></i></div>
-                    <div class="skill-name">Python</div>
+            <div class="skill-group-box">
+                <h3 class="skill-category">Programming</h3>
+                <div class="skills-grid">
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="skill-icon"><i class="fab fa-python"></i></div>
+                        <div class="skill-name">Python</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="skill-icon"><i class="fab fa-cuttlefish"></i></div>
+                        <div class="skill-name">C/C++</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="skill-icon"><i class="fab fa-js"></i></div>
+                        <div class="skill-name">JavaScript</div>
+                    </div>
                 </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="skill-icon"><i class="fab fa-cuttlefish"></i></div>
-                    <div class="skill-name">C/C++</div>
+            </div>
+
+            <div class="skill-group-box">
+                <h3 class="skill-category">Web Development</h3>
+                <div class="skills-grid">
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                        <div class="skill-name">HTML</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                        <div class="skill-name">CSS</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="skill-icon"><i class="fab fa-bootstrap"></i></div>
+                        <div class="skill-name">Bootstrap</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="600">
+                        <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                        <div class="skill-name">Node.js</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="700">
+                        <div class="skill-icon"><i class="fas fa-server"></i></div>
+                        <div class="skill-name">Express.js</div>
+                    </div>
                 </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon"><i class="fas fa-database"></i></div>
-                    <div class="skill-name">SQL</div>
+            </div>
+
+            <div class="skill-group-box">
+                <h3 class="skill-category">Databases</h3>
+                <div class="skills-grid">
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="800">
+                        <div class="skill-icon"><i class="fas fa-database"></i></div>
+                        <div class="skill-name">SQL</div>
+                    </div>
                 </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
-                    <div class="skill-name">HTML</div>
+            </div>
+
+            <div class="skill-group-box">
+                <h3 class="skill-category">Data Science & Machine Learning</h3>
+                <div class="skills-grid">
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="900">
+                        <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div class="skill-name">NumPy</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">
+                        <div class="skill-icon"><i class="fas fa-table"></i></div>
+                        <div class="skill-name">Pandas</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1100">
+                        <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="skill-name">Matplotlib</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1200">
+                        <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                        <div class="skill-name">Scikit-Learn</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1300">
+                        <div class="skill-icon"><i class="fas fa-stream"></i></div>
+                        <div class="skill-name">Streamlit</div>
+                    </div>
                 </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
-                    <div class="skill-name">CSS</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="1100">
-                    <div class="skill-icon"><i class="fab fa-bootstrap"></i></div>
-                    <div class="skill-name">Bootstrap</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="500">
-                    <div class="skill-icon"><i class="fab fa-js"></i></div>
-                    <div class="skill-name">JavaScript</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="600">
-                    <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
-                    <div class="skill-name">NumPy</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="700">
-                    <div class="skill-icon"><i class="fas fa-table"></i></div>
-                    <div class="skill-name">Pandas</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="800">
-                    <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="skill-name">Matplotlib</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="900">
-                    <div class="skill-icon"><i class="fas fa-stream"></i></div>
-                    <div class="skill-name">Streamlit</div>
-                </div>
-                <div class="skill-item" data-aos="fade-up" data-aos-delay="1000">
-                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                    <div class="skill-name">Scikit-Learn</div>
+            </div>
+
+            <div class="skill-group-box">
+                <h3 class="skill-category">Tools & Version Control</h3>
+                <div class="skills-grid">
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1400">
+                        <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+                        <div class="skill-name">Git</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1500">
+                        <div class="skill-icon"><i class="fab fa-github"></i></div>
+                        <div class="skill-name">GitHub</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1600">
+                        <div class="skill-icon"><i class="fas fa-code"></i></div>
+                        <div class="skill-name">VS Code</div>
+                    </div>
+                    <div class="skill-item" data-aos="fade-up" data-aos-delay="1700">
+                        <div class="skill-icon"><i class="fas fa-file-excel"></i></div>
+                        <div class="skill-name">Excel</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,13 +177,148 @@
     <section id="education" class="section">
         <h2 class="section-title">Education</h2>
         <div class="education-container">
-            <div class="education-item">
-                <h3>Bachelor of Technology in Computer Science</h3>
+            <div class="education-item" onclick="openEducationModal('iiitdm')">
+                <h3 class="modal-title-accent">Bachelor of Technology in Computer Science</h3>
                 <p>Indian Institute of information Technology, Design & Manufacturing, Kancheepuram. (2023 - 2027)</p>
+                <span class="click-more">Click to see more</span>
             </div>
-            <div class="education-item">
-                <h3>High School Diploma</h3>
+            <div class="education-item" onclick="openEducationModal('viswasanthi')">
+                <h3 class="modal-title-accent">High School Diploma</h3>
                 <p>Sri Viswasanthi Educational Institutions,Vijayawada. (2021 - 2023)</p>
+                <span class="click-more">Click to see more</span>
+            </div>
+        </div>
+
+        <!-- Education Modals -->
+        <div id="educationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeEducationModal()">&times;</span>
+                <div class="modal-nav">
+                    <button class="nav-btn active" onclick="switchTab('courses')">Courses</button>
+                    <button class="nav-btn" onclick="switchTab('roles')">Roles & Responsibilities</button>
+                    <button class="nav-btn" onclick="switchTab('grades')">Grades</button>
+                </div>
+                <div class="modal-body">
+                    <div id="coursesContent" class="tab-content active">
+                        <h3>Courses at IIITDM Kancheepuram (B.Tech CSE)</h3>
+                        <div class="course-list">
+                            <div class="course-item">
+                                <h4>Data Structures and Algorithms</h4>
+                                <p>Advanced implementation of data structures and algorithm design techniques</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Linear Algebra</h4>
+                                <p>Matrix operations, vector spaces, and linear transformations</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Database Management Systems</h4>
+                                <p>SQL, database design, and management</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Operating Systems</h4>
+                                <p>Process management, memory management, and file systems</p>
+                            </div>
+                            <div class="course-item">
+                                <h4>Computer Networks</h4>
+                                <p>Network protocols, architecture, and security</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rolesContent" class="tab-content">
+                        <h3>Roles & Responsibilities at IIITDM Kancheepuram (B.Tech CSE)</h3>
+                        <ul>
+                            <li>IEEE Student Member</li>
+                            <li>Coordinator - Developer's Club IIITDM</li>
+                            <li>Coordinator - SAC Academic Affairs IIITDM</li>
+                            <li>Member - DARC Committee IIITDM</li>
+                            <li>Class Representative - IIITDM</li>
+                            <li>Volunteer - Training and Placement Cell IIITDM</li>
+                            <li>Coordinator - Social Service Group IIITDM</li>
+                            <li>Coordinator - Red Ribbon Society IIITDM</li>
+                        </ul>
+                    </div>
+                    <div id="gradesContent" class="tab-content">
+                        <h3>Academic Performance (B.Tech CSE)</h3>
+                        <div class="grades-list">
+                            <div class="semester">
+                                <h4>Semester 1</h4>
+                                <p>CGPA: 8.82/10</p>
+                            </div>
+                            <div class="semester">
+                                <h4>Semester 2</h4>
+                                <p>CGPA: 8.97/10</p>
+                            </div>
+                            <div class="semester">
+                                <h4>Semester 3</h4>
+                                <p>CGPA: 8.82/10</p>
+                            </div>
+                            <div class="semester">
+                                <h4>Semester 4</h4>
+                                <p>CGPA: 8.72/10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Data Analytics & Visualization</h3>
+                        <p class="certification-issuer">Accenture North America</p>
+                        <p class="certification-date">March 2025</p>
+                        <p class="certification-description">Completed a comprehensive job simulation focused on data analytics, visualization, and strategic recommendations using real-world business scenarios.</p>
+                        <a href="certificates/accenture-job-simulation.pdf" class="certification-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>The Joy of Computing in Python</h3>
+                        <p class="certification-issuer">NPTEL</p>
+                        <p class="certification-date">November 2024</p>
+                        <p class="certification-description">Mastered Python programming fundamentals and computational thinking through practical problem-solving exercises and real-world applications.</p>
+                        <a href="certificates/The_Joy_of_Computing_using_Python.pdf" class="certification-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Programming in Java</h3>
+                        <p class="certification-issuer">NPTEL</p>
+                        <p class="certification-date">May 2025</p>
+                        <p class="certification-description">Comprehensive course covering Java programming fundamentals, object-oriented concepts, and advanced Java features.</p>
+                        <a href="certificates/Programming_In_Java.pdf" class="certification-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="certification-content">
+                        <h3>Introduction to HTML, CSS, & JavaScript</h3>
+                        <p class="certification-issuer">IBM on Coursera</p>
+                        <p class="certification-date">May 2025</p>
+                        <p class="certification-description">Learned web development fundamentals including HTML structure, CSS styling, and JavaScript programming for interactive web applications.</p>
+                        <a href="certificates/Coursera_TG8N8Y3VQPOM.pdf" class="certification-link">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -465,6 +526,7 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>

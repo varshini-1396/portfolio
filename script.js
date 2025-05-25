@@ -244,3 +244,253 @@ document.addEventListener('DOMContentLoaded', function() {
         experienceObserver.observe(item);
     });
 });
+
+// EmailJS Initialization
+document.addEventListener('DOMContentLoaded', function() {
+    emailjs.init("CoRkb1qOpxlcCZOIh");  // Replace with your EmailJS Public Key
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactFormSubmit);
+    }
+});
+
+// Contact Form Handler
+function handleContactFormSubmit(e) {
+    e.preventDefault();
+
+    // Get form fields
+    const name = document.querySelector('input[placeholder="Your Name"]').value.trim();
+    const email = document.querySelector('input[placeholder="Your Email"]').value.trim();
+    const subject = document.querySelector('input[placeholder="Subject"]').value.trim();
+    const message = document.querySelector('textarea[placeholder="Your Message"]').value.trim();
+
+    // Validate fields
+    let isValid = true;
+    let errorMessage = '';
+
+    if (!name) {
+        isValid = false;
+        errorMessage = 'Please enter your name';
+    }
+    if (!email) {
+        isValid = false;
+        errorMessage = 'Please enter your email';
+    } else if (!isValidEmail(email)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid email address';
+    }
+    if (!subject) {
+        isValid = false;
+        errorMessage = 'Please enter a subject';
+    }
+    if (!message) {
+        isValid = false;
+        errorMessage = 'Please enter your message';
+    }
+
+    if (!isValid) {
+        showNotification(errorMessage, 'error');
+        return;
+    }
+
+    // Show loading state
+    const submitBtn = e.target.querySelector('.submit-btn');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    // Prepare form data
+    const formData = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message
+    };
+
+    // Send email
+    emailjs.send("service_5rzwhh9", "template_nj17tp5", formData)
+        .then(() => {
+            console.log('Email Sent Successfully');
+            showNotification('Thank you for your message! I will get back to you soon.', 'success');
+            e.target.reset();
+        })
+        .catch(err => {
+            console.error('Email Error:', err);
+            showNotification('Failed to send message. Please try again.', 'error');
+        })
+        .finally(() => {
+            // Reset button state
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        });
+}
+
+// Email validation function
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Notification function
+function showNotification(message, type = 'success') {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create new notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    
+    // Add icon based on type
+    const icon = document.createElement('i');
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    notification.appendChild(icon);
+    
+    // Add message
+    const messageText = document.createElement('span');
+    messageText.textContent = message;
+    notification.appendChild(messageText);
+    
+    // Add to document
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    // Hide and remove after 5 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 5000);
+}
+
+// Education Modal Functions
+function openEducationModal(institution) {
+    const modal = document.getElementById('educationModal');
+    modal.style.display = 'block';
+    
+    // Update modal content based on institution
+    if (institution === 'iiitdm') {
+        document.getElementById('coursesContent').querySelector('h3').textContent = 'Courses at IIITDM Kancheepuram (B.Tech CSE)';
+        document.getElementById('rolesContent').querySelector('h3').textContent = 'Roles & Responsibilities at IIITDM Kancheepuram (B.Tech CSE)';
+        document.getElementById('gradesContent').querySelector('h3').textContent = 'Academic Performance (B.Tech CSE)';
+        
+        // Show all tabs for IIITDM
+        document.getElementById('coursesContent').style.display = 'block';
+        document.getElementById('rolesContent').style.display = 'none';
+        document.getElementById('gradesContent').style.display = 'none';
+        document.querySelector('.modal-nav').style.display = 'flex';
+        
+        // Hide high school content if it exists
+        const highSchoolContent = document.getElementById('highSchoolContent');
+        if (highSchoolContent) {
+            highSchoolContent.style.display = 'none';
+        }
+        
+        // Reset to courses tab
+        switchTab('courses');
+    } else if (institution === 'viswasanthi') {
+        // Hide all tab contents and navigation for high school
+        document.getElementById('coursesContent').style.display = 'none';
+        document.getElementById('rolesContent').style.display = 'none';
+        document.getElementById('gradesContent').style.display = 'none';
+        document.querySelector('.modal-nav').style.display = 'none';
+        
+        // Create and show high school content
+        const modalBody = document.querySelector('.modal-body');
+        let highSchoolContent = document.getElementById('highSchoolContent');
+        
+        if (!highSchoolContent) {
+            highSchoolContent = document.createElement('div');
+            highSchoolContent.id = 'highSchoolContent';
+            highSchoolContent.className = 'tab-content active';
+            highSchoolContent.innerHTML = `
+                <h3>High School Education at Sri Viswasanthi Educational Institutions</h3>
+                <div class="high-school-info">
+                    <div class="info-section">
+                        <h4>Academic Focus</h4>
+                        <ul>
+                            <li>Mathematics (Advanced)</li>
+                            <li>Physics</li>
+                            <li>Computer Science</li>
+                            <li>English</li>
+                        </ul>
+                    </div>
+                    <div class="info-section">
+                        <h4>Academic Performance</h4>
+                        <p>Board Examination: 97.2%</p>
+                        <p>JEE Mains Percentile: 98.53</p>
+                    </div>
+                    <div class="info-section">
+                        <h4>Achievements & Activities</h4>
+                        <ul>
+                            <li>School First in Mathematics</li>
+                            <li>Active participant in Science Exhibitions</li>
+                            <li>Member of School Science Club</li>
+                            <li>Participated in District Level Mathematics Olympiad</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            modalBody.appendChild(highSchoolContent);
+        }
+        
+        // Ensure high school content is visible
+        highSchoolContent.style.display = 'block';
+        highSchoolContent.classList.add('active');
+    }
+}
+
+function closeEducationModal() {
+    const modal = document.getElementById('educationModal');
+    modal.style.display = 'none';
+    
+    // Hide high school content
+    const highSchoolContent = document.getElementById('highSchoolContent');
+    if (highSchoolContent) {
+        highSchoolContent.style.display = 'none';
+    }
+}
+
+function switchTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let content of tabContents) {
+        content.style.display = 'none';
+        content.classList.remove('active');
+    }
+    
+    // Remove active class from all nav buttons
+    const navButtons = document.getElementsByClassName('nav-btn');
+    for (let btn of navButtons) {
+        btn.classList.remove('active');
+    }
+    
+    // Show selected tab content
+    const selectedTab = document.getElementById(tabName + 'Content');
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+        selectedTab.classList.add('active');
+    }
+    
+    // Add active class to clicked button
+    const clickedButton = document.querySelector(`.nav-btn[onclick="switchTab('${tabName}')"]`);
+    if (clickedButton) {
+        clickedButton.classList.add('active');
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('educationModal');
+    if (event.target == modal) {
+        closeEducationModal();
+    }
+}
